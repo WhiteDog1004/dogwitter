@@ -1,4 +1,4 @@
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
 
 const Dweet = ({ dweetObj, isOwner }) => {
@@ -7,14 +7,18 @@ const Dweet = ({ dweetObj, isOwner }) => {
 
     // newDweet : input의 값을 수정할 수 있음
     const [newDweet, setNewDweet] = useState(dweetObj.text);
+
+    // 삭제
     const onDeleteClick = async () => {
         const ok = window.confirm("정말 dweet을 삭제 하시겠습니까?");
         if (ok) {
             // dweet 삭제
             await dbService.doc(`dweets/${dweetObj.id}`).delete();
+            await storageService.refFromURL(dweetObj.attachmentUrl).delete();
         }
     };
     const toggleEditing = () => setEditing((prev) => !prev);
+
     const onSubmit = async (event) => {
         event.preventDefault();
         await dbService.doc(`dweets/${dweetObj.id}`).update({
@@ -51,10 +55,13 @@ const Dweet = ({ dweetObj, isOwner }) => {
                 ) : (
                     <>
                         <h4>{dweetObj.text}</h4>
+                        {dweetObj.attachmentUrl && (
+                            <img src={dweetObj.attachmentUrl} width="50px" height="50px" />
+                        )}
                         {isOwner && (
                             <>
-                                <button onClick={onDeleteClick}>Delete</button>
-                                <button onClick={toggleEditing}>Edit</button>
+                                <button onClick={toggleEditing}>수정</button>
+                                <button onClick={onDeleteClick}>삭제</button>
                             </>
                         )}
                     </>

@@ -1,5 +1,6 @@
 import Dweet from "components/Dweet";
-import { dbService } from "fbase";
+import { v4 as uuidv4 } from "uuid";
+import { dbService, storageService } from "fbase";
 import React, { useEffect, useState } from "react";
 
 const Home = ({ userObj }) => {
@@ -25,12 +26,26 @@ const Home = ({ userObj }) => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        await dbService.collection('dweets').add({
+        let attachmentUrl = "";
+        if(attachment !== ""){
+            const attachmentRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
+            const response = await attachmentRef.putString(attachment, "data_url");
+            attachmentUrl = await response.ref.getDownloadURL();
+        }
+        const dweetItem = {
             text: dweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
-        });
+            attachmentUrl,
+        };
+        await dbService.collection('dweets').add(dweetItem);
         setDweet("");
+        setAttachment("");
+
+        // 1) Storage().ref().child() return Reference - storage의 이미지 폴더 생성.
+        // 2) Reference.putString() - 이 작업이 폴더에 이미지를 넣는 작업.
+        // 3) Reference.putString() return (완료시 UploadTaskSnapshot을 받음)
+        // 4) UploadTaskSnapshot.ref.getDownloadURL() - 이 작업에서 ref 속성을 쓰면 그 이미지의 Reference에 접근 가능, 이미지가 저장된 stroage 주소를 받을 수 있다.
     };
     const onChange = (event) => {
         const {
