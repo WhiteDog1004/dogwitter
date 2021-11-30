@@ -8,6 +8,7 @@ const Home = ({ userObj }) => {
 
     //
     const [dweets, setDweets] = useState([]);
+    const [attachment, setAttachment] = useState();
 
     useEffect(() => {
         // onSnapshot은 데이터베이스에 무슨 일이 있을 때, 알림을 받음
@@ -45,16 +46,26 @@ const Home = ({ userObj }) => {
         const theFile = files[0];
         const reader = new FileReader();
         reader.onloadend = (finishedEvent) => {
-            console.log(finishedEvent)
+            const {
+                currentTarget: { result },
+            } = finishedEvent;
+            setAttachment(result);
         };
         reader.readAsDataURL(theFile);
     };
+    const onClearAttachment = () => setAttachment(null);
     return (
         <div>
             <form onSubmit={onSubmit}>
                 <input value={dweet} onChange={onChange} type='text' placeholder="What's on your mind?" maxLength={120} />
                 <input type="file" accept="image/*" onChange={onFileChange} />
                 <input type='submit' value="Dweet" />
+                {attachment && (
+                    <div>
+                        <img src={attachment} width="50px" height="50px" />
+                        <button onClick={onClearAttachment}>삭제</button>
+                    </div>
+                )}
             </form>
             <div>
                 {/* Dweet 컴포넌트 생성 */}
