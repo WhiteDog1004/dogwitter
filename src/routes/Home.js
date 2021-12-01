@@ -9,7 +9,7 @@ const Home = ({ userObj }) => {
 
     //
     const [dweets, setDweets] = useState([]);
-    const [attachment, setAttachment] = useState();
+    const [attachment, setAttachment] = useState("");
 
     useEffect(() => {
         // onSnapshot은 데이터베이스에 무슨 일이 있을 때, 알림을 받음

@@ -1,12 +1,48 @@
-import { authService } from "fbase";
-import React from "react";
+import { authService, dbService } from "fbase";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default () => {
+export default ({ refreshUser, userObj }) => {
     const onLogOutClick = () => authService.signOut();
+    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+    const getMyDweets = async () => {
+        const dweets = await dbService
+            .collection("dweets")
+            .where("creatorId", "==", userObj.uid)
+            .orderBy("createdAt", "desc")
+            .get();
+            console.log(dweets.docs.map((doc) => doc.data()));
+    }
+    useEffect(() => {
+        getMyDweets();
+    }, [])
+    const onChange = (event) => {
+        const {
+            target : { value },
+        } = event;
+        setNewDisplayName(value);
+    };
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        if(userObj.displayName !== newDisplayName) {
+            await userObj.updateProfile({
+                displayName: newDisplayName,
+            });
+            refreshUser();
+        };
+    };
     return (
-    <>
-        <Link to='/'><button onClick={onLogOutClick} >LogOut</button></Link>
-    </>
+        <>
+            <form onSubmit={onSubmit}>
+                <input 
+                onChange={onChange}
+                type="text" 
+                placeholder="Display Name"
+                value={newDisplayName}
+                />
+                <input type="submit" value="프로필 업데이트"/>
+            </form>
+            <Link to='/'><button onClick={onLogOutClick} >LogOut</button></Link>
+        </>
     )
 }
