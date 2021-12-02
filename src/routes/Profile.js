@@ -6,12 +6,12 @@ export default ({ refreshUser, userObj }) => {
     const onLogOutClick = () => authService.signOut();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const getMyDweets = async () => {
-        const dweets = await dbService
+        await dbService
             .collection("dweets")
             .where("creatorId", "==", userObj.uid)
             .orderBy("createdAt", "desc")
             .get();
-            console.log(dweets.docs.map((doc) => doc.data()));
+            // console.log(dweets.docs.map((doc) => doc.data()));
     }
     useEffect(() => {
         getMyDweets();
