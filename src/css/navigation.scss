@@ -1,0 +1,63 @@
+@import "https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css";
+
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+}
+ul, li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+svg {
+    width: 1em !important;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    width: 25%;
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+nav ul li {
+    margin: 20px 10px;
+}
+nav ul li:nth-of-type(1) {
+    margin: 0 10px;
+}
+nav ul li:nth-of-type(1) svg {
+    font-size: 2em;
+    padding: 10px;
+    border-radius: 50%;
+}
+nav ul li:nth-of-type(1) a {
+    font-size: 32px !important;
+    color : rgb(29, 155, 240);
+}
+nav ul li:nth-of-type(1):hover svg {
+    background-color: rgba(29, 156, 240, 0.15);
+    transition: all .5s;
+}
+nav ul li:nth-of-type(1):hover a {
+    background-color: rgba(255, 255, 255, 0);
+}
+nav ul li a {
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+nav ul li:hover a {
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: all .5s;
+}
+nav ul li a p {
+    margin: 0 0 0 5px;
+}
