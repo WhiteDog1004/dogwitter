@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import AppRouter from "components/Router";
 import { authService } from "fbase";
 
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faTwitter } from "@fortawesome/free-brands-svg-icons"
+// import {
+//     faHome,
+//     faUserAlt,
+// } from "@fortawesome/free-solid-svg-icons";
+
+import '../css/app.scss';
+
 function App() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
