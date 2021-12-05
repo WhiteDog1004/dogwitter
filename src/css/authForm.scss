@@ -1,0 +1,66 @@
+@import "https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css";
+
+* {
+    box-sizing: border-box;
+}
+.formBox {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.fa-twitter {
+    color: #1d9bf0;
+    margin: 10px;
+}
+.inputForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.inputForm input {
+    margin: 5px;
+    border: 0;
+    background-color: #84c2eb;
+    width: 200px;
+    height: 40px;
+    color: white;
+    padding: 10px;
+}
+.inputForm input:nth-of-type(3) {
+    background-color: #16547e;
+    border-radius: 20px;
+    cursor: pointer;
+}
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+.outBtn {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.outBtn span {
+    font-size: 12px;
+    color: rgb(99, 99, 247);
+    cursor: pointer;
+}
+.outBtn button {
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    margin-top: 2em;
+    border: 1px solid black;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    cursor: pointer;
+}
+.outBtn button:hover {
+    background-color: rgba(26, 121, 185, 0.2);
+    transition: all .25s;
+}

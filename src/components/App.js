@@ -2,13 +2,6 @@ import React, { useEffect, useState } from "react";
 import AppRouter from "components/Router";
 import { authService } from "fbase";
 
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faTwitter } from "@fortawesome/free-brands-svg-icons"
-// import {
-//     faHome,
-//     faUserAlt,
-// } from "@fortawesome/free-solid-svg-icons";
-
 import '../css/app.scss';
 
 function App() {
@@ -46,7 +39,7 @@ function App() {
   return (
     <>
       {init ? <AppRouter refreshUser={refreshUser} isLoggedIn={isLoggedIn} userObj={userObj} /> : "Initializing.."}
-      <footer>copy Dogwitter {new Date().getFullYear()}</footer>
+      {/* <footer>copy Dogwitter {new Date().getFullYear()}</footer> */}
     </>
   );
 }
