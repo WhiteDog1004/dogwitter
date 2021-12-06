@@ -14,7 +14,9 @@ const Dweet = ({ dweetObj, isOwner }) => {
         if (ok) {
             // dweet 삭제
             await dbService.doc(`dweets/${dweetObj.id}`).delete();
-            await storageService.refFromURL(dweetObj.attachmentUrl).delete();
+            if(dweetObj.attachmentUrl){
+                await storageService.refFromURL(dweetObj.attachmentUrl).delete();
+            }
         }
     };
     const toggleEditing = () => setEditing((prev) => !prev);
@@ -42,7 +44,7 @@ const Dweet = ({ dweetObj, isOwner }) => {
                                 <form onSubmit={onSubmit}>
                                     <input
                                         type="text"
-                                        placeholder="edit your dweet"
+                                        placeholder="드윗 수정하기"
                                         value={newDweet}
                                         required
                                         onChange={onChange} />
@@ -56,7 +58,7 @@ const Dweet = ({ dweetObj, isOwner }) => {
                     <>
                         <h4>{dweetObj.text}</h4>
                         {dweetObj.attachmentUrl && (
-                            <img src={dweetObj.attachmentUrl} width="50px" height="50px" alt="img"/>
+                            <img src={dweetObj.attachmentUrl} width="100px" height="100px" alt="img"/>
                         )}
                         {isOwner && (
                             <>

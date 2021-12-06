@@ -5,10 +5,6 @@ import '../css/authForm.scss';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
-import {
-    faHome,
-    faUserAlt,
-} from "@fortawesome/free-solid-svg-icons";
 
 const AuthForm = () => {
     const [newAccount, setNewAccount] = useState(true);
@@ -38,7 +34,17 @@ const AuthForm = () => {
                 data = await authService.signInWithEmailAndPassword(email, password);
             }
         } catch (error) {
-            setError(error.message);
+            if(error.message.includes("There")){
+                setError("계정이 없습니다.");
+            } else if(error.message.includes("password")){
+                setError("비밀번호가 틀렸습니다.");
+            } else if(error.message.includes("Password")){
+                setError("비밀번호는 최소 6자 이상 입력해주세요.");
+            } else if(error.message.includes("another")){
+                setError("이미 존재하는 계정입니다.");
+            } else {
+                console.log(error.message);
+            }
         }
     };
 

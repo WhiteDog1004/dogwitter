@@ -11,20 +11,20 @@ export default ({ refreshUser, userObj }) => {
             .where("creatorId", "==", userObj.uid)
             .orderBy("createdAt", "desc")
             .get();
-            // console.log(dweets.docs.map((doc) => doc.data()));
+        // console.log(dweets.docs.map((doc) => doc.data()));
     }
     useEffect(() => {
         getMyDweets();
     }, [])
     const onChange = (event) => {
         const {
-            target : { value },
+            target: { value },
         } = event;
         setNewDisplayName(value);
     };
     const onSubmit = async (event) => {
         event.preventDefault();
-        if(userObj.displayName !== newDisplayName) {
+        if (userObj.displayName !== newDisplayName) {
             await userObj.updateProfile({
                 displayName: newDisplayName,
             });
@@ -33,16 +33,18 @@ export default ({ refreshUser, userObj }) => {
     };
     return (
         <>
-            <form onSubmit={onSubmit}>
-                <input 
-                onChange={onChange}
-                type="text" 
-                placeholder="Display Name"
-                value={newDisplayName}
-                />
-                <input type="submit" value="프로필 업데이트"/>
-            </form>
-            <Link to='/'><button onClick={onLogOutClick} >LogOut</button></Link>
+            <div>
+                <form onSubmit={onSubmit}>
+                    <input
+                        onChange={onChange}
+                        type="text"
+                        placeholder="프로필 닉네임"
+                        value={newDisplayName}
+                    />
+                    <input type="submit" value="프로필 업데이트" />
+                </form>
+                <Link to='/'><button onClick={onLogOutClick} >LogOut</button></Link>
+            </div>
         </>
     )
 }

@@ -1,0 +1,44 @@
+.dweetBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.dweetBox > input {
+    border: 0;
+}
+.dweetBox > input:nth-of-type(1)::placeholder {
+    color: rgba(0, 0, 0, 0.2);
+}
+.dweetBox > input:nth-of-type(1) {
+    width: 80%;
+    height: 100px;
+    text-align: center;
+}
+.dweetBox > div:nth-of-type(1) {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.dweetBox > div > label {
+    cursor: pointer;
+    color: rgb(29, 155, 240);
+}
+.dweetBox > div > input:nth-of-type(2) {
+    border: 0;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: rgb(29, 155, 240);
+    opacity: .85;
+    color: white;
+    cursor: pointer;
+}
+.dweetBox > div > input:nth-of-type(2):hover {
+    opacity: 1;
+    transition: .25s;
+}

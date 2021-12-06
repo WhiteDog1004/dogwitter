@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "fbase";
 
+import '../css/dweetFactory.scss';
+
+import {
+    faImage,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const DweetFactory = ({ userObj }) => {
     // dweet은 form을 위한 state
     const [dweet, setDweet] = useState("");
@@ -53,10 +60,13 @@ const DweetFactory = ({ userObj }) => {
     };
     const onClearAttachment = () => setAttachment(null);
     return (
-        <form onSubmit={onSubmit}>
-            <input value={dweet} onChange={onChange} type='text' placeholder="What's on your mind?" maxLength={120} />
-            <input type="file" accept="image/*" onChange={onFileChange} />
-            <input type='submit' value="Dweet" />
+        <form onSubmit={onSubmit} className="dweetBox">
+            <input value={dweet} onChange={onChange} type='text' placeholder="무슨 생각 중이신가요?" maxLength={120} />
+            <div>
+                <label for="fileClick"><FontAwesomeIcon icon={faImage} size="2x"/></label>
+                <input type="file" accept="image/*" id="fileClick" onChange={onFileChange} style={{display:"none"}}/>
+                <input type='submit' value="Dweet" />
+            </div>
             {attachment && (
                 <div>
                     <img src={attachment} width="50px" height="50px" alt="img" />
