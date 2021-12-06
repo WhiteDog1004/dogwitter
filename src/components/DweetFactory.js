@@ -5,7 +5,7 @@ import { dbService, storageService } from "fbase";
 import '../css/dweetFactory.scss';
 
 import {
-    faImage,
+    faImage, faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -28,6 +28,7 @@ const DweetFactory = ({ userObj }) => {
             creatorId: userObj.uid,
             attachmentUrl,
         };
+        if(dweetItem.text === "") return;
         await dbService.collection('dweets').add(dweetItem);
         setDweet("");
         setAttachment("");
@@ -68,9 +69,9 @@ const DweetFactory = ({ userObj }) => {
                 <input type='submit' value="Dweet" />
             </div>
             {attachment && (
-                <div>
-                    <img src={attachment} width="50px" height="50px" alt="img" />
-                    <button onClick={onClearAttachment}>삭제</button>
+                <div className="dweetImgBox">
+                    <img src={attachment} width="150px" height="150px" alt="img" />
+                    <button onClick={onClearAttachment}><FontAwesomeIcon icon={faTimesCircle} size="2x"/> </button>
                 </div>
             )}
         </form>

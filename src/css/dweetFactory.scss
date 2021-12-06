@@ -42,3 +42,20 @@
     opacity: 1;
     transition: .25s;
 }
+
+.dweetImgBox {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.dweetImgBox button {
+    border: 0;
+    background: none;
+    position: absolute;
+    right: 0;
+    color: white;
+    margin: 5px;
+    cursor: pointer;
+}
