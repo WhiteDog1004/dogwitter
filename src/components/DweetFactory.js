@@ -27,6 +27,7 @@ const DweetFactory = ({ userObj }) => {
             createdAt: Date.now(),
             creatorId: userObj.uid,
             attachmentUrl,
+            nickName: userObj.displayName,
         };
         if(dweetItem.text === "") return;
         await dbService.collection('dweets').add(dweetItem);

@@ -28,6 +28,7 @@ const Home = ({ userObj }) => {
                 {/* isOwner  : true || false, dweet을 만든 사람과 userObj.uid가 같으면 true를 반환( userObj는 Home의 props에서 옴 그 이후로 ... Home(props) < router(props) < App.js ) */}
                 {dweets.map((dweet) => (
                     <Dweet
+                        userObj={userObj}
                         key={dweet.id}
                         dweetObj={dweet}
                         isOwner={dweet.creatorId === userObj.uid} />

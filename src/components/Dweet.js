@@ -31,7 +31,7 @@ const Dweet = ({ dweetObj, isOwner }) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         await dbService.doc(`dweets/${dweetObj.id}`).update({
-            text: newDweet
+            text: newDweet,
         });
         setEditing(false);
     };
@@ -67,15 +67,18 @@ const Dweet = ({ dweetObj, isOwner }) => {
                 ) : (
                     <>
                         <div className="dweetMsgBox">
+                            <h3>{dweetObj.nickName}</h3>
                             <h4>{dweetObj.text}</h4>
-                            {isOwner && (
-                                <>
-                                    <button onClick={toggleEditing}><FontAwesomeIcon icon={faEdit} size="2x" /></button>
-                                    <button onClick={onDeleteClick}><FontAwesomeIcon icon={faTrashAlt} size="2x" /></button>
-                                </>
-                            )}
                             {dweetObj.attachmentUrl && (
                                 <img src={dweetObj.attachmentUrl} width="100px" height="100px" alt="img" />
+                            )}
+                            {isOwner && (
+                                <>
+                                    <div className="dweetBtn">
+                                        <button onClick={toggleEditing}><FontAwesomeIcon icon={faEdit} size="2x" /></button>
+                                        <button onClick={onDeleteClick}><FontAwesomeIcon icon={faTrashAlt} size="2x" /></button>
+                                    </div>
+                                </>
                             )}
                         </div>
                     </>
