@@ -10,7 +10,8 @@ const Home = ({ userObj }) => {
     useEffect(() => {
         // onSnapshot은 데이터베이스에 무슨 일이 있을 때, 알림을 받음
         // 새로운 스냅샷을 받을 때 새로운 배열을 만듬
-        dbService.collection("dweets").onSnapshot((snapShot) => {
+        // .orderBy("createdAt","desc") << 내림차순으로
+        dbService.collection("dweets").orderBy("createdAt","desc").onSnapshot((snapShot) => {
             const dweetArr = snapShot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data(),

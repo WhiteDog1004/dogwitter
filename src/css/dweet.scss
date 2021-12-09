@@ -70,7 +70,7 @@ textarea {
 	color: rgba(0, 0, 0, 0.1);
 }
 .dweetMsgBox button:hover {
-	color: black;
+	color: rgb(255, 0, 0);
 	transition: color 0.35s;
 }
 .dweetBtn {
@@ -86,4 +86,19 @@ textarea {
 .dweetMsgBox h4 {
 	padding: 10px;
 	width: 90%;
+}
+
+.timeCheckBox {
+	position: absolute;
+	width: 80%;
+	text-align: right;
+	left: 50%;
+	bottom: 0;
+	transform: translateX(-50%);
+}
+
+.timeCheckBox p {
+	padding: 0 20px;
+	color: rgb(0, 0, 0);
+	opacity: .5;
 }

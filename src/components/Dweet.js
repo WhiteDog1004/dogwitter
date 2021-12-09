@@ -41,6 +41,43 @@ const Dweet = ({ dweetObj, isOwner }) => {
         } = event;
         setNewDweet(value);
     };
+
+    const timeCheck = () => {
+        // 드윗 작성후 시간 얼마나 지났는지
+        const testTime = Date.now();
+        const timeNow = (testTime - dweetObj.createdAt) / 1000;
+        const timeResult = Math.floor(timeNow);
+        if (timeResult < 60) {
+            let time = 0;
+            return (<>
+                <p>{time}분 전</p>
+            </>)
+        } else {
+            let time = timeResult / 60;
+            time = Math.floor(time);
+            if (time > 59) {
+                let hour = time / 60;
+                hour = Math.floor(hour);
+                if(hour > 23) {
+                    let day = hour / 24;
+                    day = Math.floor(day);
+                    return (<>
+                        <p>{day}일 전</p>
+                    </>)
+                }
+                return (<>
+                    <p>{hour}시간 전</p>
+                </>)
+            }
+
+            return (<>
+                <p>{time}분 전</p>
+            </>)
+        }
+
+    }
+
+
     return (
         <div className="dweetBox">
             {
@@ -81,6 +118,7 @@ const Dweet = ({ dweetObj, isOwner }) => {
                                 </>
                             )}
                         </div>
+                        <div className="timeCheckBox">{timeCheck()}</div>
                     </>
                 )
             }
