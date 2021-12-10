@@ -1,9 +1,15 @@
 import { authService, dbService } from "fbase";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
-export default ({ refreshUser, userObj }) => {
-    const onLogOutClick = () => authService.signOut();
+import '../css/profile.scss';
+const Profiles = ({ refreshUser, userObj }) => {
+    const onLogOutClick = () => {
+        const logoutCheck = window.confirm("로그아웃 하시겠습니까?");
+        if (logoutCheck) {
+            window.location.href = "/";
+            authService.signOut();
+        }
+    };
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const getMyDweets = async () => {
         await dbService
@@ -15,7 +21,7 @@ export default ({ refreshUser, userObj }) => {
     }
     useEffect(() => {
         getMyDweets();
-    }, [])
+    });
     const onChange = (event) => {
         const {
             target: { value },
@@ -29,11 +35,13 @@ export default ({ refreshUser, userObj }) => {
                 displayName: newDisplayName,
             });
             refreshUser();
+        } else {
+            alert(`변경할 닉네임을 작성해주세요`);
         };
     };
     return (
         <>
-            <div>
+            <div className="profileFormBox">
                 <form onSubmit={onSubmit}>
                     <input
                         onChange={onChange}
@@ -41,10 +49,12 @@ export default ({ refreshUser, userObj }) => {
                         placeholder="프로필 닉네임"
                         value={newDisplayName}
                     />
-                    <input type="submit" value="프로필 업데이트" />
+                    <input type="submit" value="프로필 변경" />
                 </form>
-                <Link to='/'><button onClick={onLogOutClick} >LogOut</button></Link>
+                <button onClick={onLogOutClick} >LogOut</button>
             </div>
         </>
     )
 }
+
+export default Profiles;

@@ -65,7 +65,7 @@ const DweetFactory = ({ userObj }) => {
         <form onSubmit={onSubmit} className="dweetBox">
             <input value={dweet} onChange={onChange} type='text' placeholder="무슨 생각 중이신가요?" maxLength={120} />
             <div>
-                <label for="fileClick"><FontAwesomeIcon icon={faImage} size="2x"/></label>
+                <label htmlFor="fileClick"><FontAwesomeIcon icon={faImage} size="2x"/></label>
                 <input type="file" accept="image/*" id="fileClick" onChange={onFileChange} style={{display:"none"}}/>
                 <input type='submit' value="Dweet" />
             </div>

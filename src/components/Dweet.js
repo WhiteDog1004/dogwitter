@@ -93,7 +93,7 @@ const Dweet = ({ dweetObj, isOwner }) => {
                                         required
                                         onChange={onChange} />
                                     <div className="dweetEditBox">
-                                        <label for="editClick"><FontAwesomeIcon icon={faEdit} size="2x" /></label>
+                                        <label htmlFor="editClick"><FontAwesomeIcon icon={faEdit} size="2x" /></label>
                                         <input type="submit" id="editClick" value="수정" />
                                         <button onClick={toggleEditing}><FontAwesomeIcon icon={faTimesCircle} size="2x" /></button>
                                     </div>
