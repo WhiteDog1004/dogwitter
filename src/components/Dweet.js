@@ -9,6 +9,10 @@ import {
 import '../css/dweet.scss';
 
 const Dweet = ({ dweetObj, isOwner }) => {
+
+    const [imgPopup, setImgPopup] = useState("");
+    const [isPopupActive, setIsPopupActive] = useState(false);
+
     // editing : dweet을 수정하고 있는지 아닌지를 확인함
     const [editing, setEditing] = useState(false);
 
@@ -58,7 +62,7 @@ const Dweet = ({ dweetObj, isOwner }) => {
             if (time > 59) {
                 let hour = time / 60;
                 hour = Math.floor(hour);
-                if(hour > 23) {
+                if (hour > 23) {
                     let day = hour / 24;
                     day = Math.floor(day);
                     return (<>
@@ -74,55 +78,74 @@ const Dweet = ({ dweetObj, isOwner }) => {
                 <p>{time}분 전</p>
             </>)
         }
-
     }
 
+    // 이미지 클릭시 크게
+    const imgClick = () => {
+        const img = dweetObj.attachmentUrl;
+
+        setIsPopupActive(true);
+        setImgPopup(img);
+    }
+    const cancelClick = () => {
+        setIsPopupActive(false);
+        setImgPopup("");
+    }
 
     return (
-        <div className="dweetBox">
-            {
-                editing ? (
-                    <>
-                        {isOwner && (
-                            <>
-                                <form onSubmit={onSubmit}>
-                                    <textarea
-                                        type="text"
-                                        placeholder="드윗 수정하기"
-                                        value={newDweet}
-                                        required
-                                        onChange={onChange} />
-                                    <div className="dweetEditBox">
-                                        <label htmlFor="editClick"><FontAwesomeIcon icon={faEdit} size="2x" /></label>
-                                        <input type="submit" id="editClick" value="수정" />
-                                        <button onClick={toggleEditing}><FontAwesomeIcon icon={faTimesCircle} size="2x" /></button>
-                                    </div>
-                                </form>
-                            </>
-                        )}
-                    </>
-                ) : (
-                    <>
-                        <div className="dweetMsgBox">
-                            <h3>{dweetObj.nickName}</h3>
-                            <h4>{dweetObj.text}</h4>
-                            {dweetObj.attachmentUrl && (
-                                <img src={dweetObj.attachmentUrl} width="100px" height="100px" alt="img" />
-                            )}
+        <>
+            <div className="dweetBox">
+                {
+                    editing ? (
+                        <>
                             {isOwner && (
                                 <>
-                                    <div className="dweetBtn">
-                                        <button onClick={toggleEditing}><FontAwesomeIcon icon={faEdit} size="2x" /></button>
-                                        <button onClick={onDeleteClick}><FontAwesomeIcon icon={faTrashAlt} size="2x" /></button>
-                                    </div>
+                                    <form onSubmit={onSubmit}>
+                                        <textarea
+                                            type="text"
+                                            placeholder="드윗 수정하기"
+                                            value={newDweet}
+                                            required
+                                            onChange={onChange} />
+                                        <div className="dweetEditBox">
+                                            <label htmlFor="editClick"><FontAwesomeIcon icon={faEdit} size="2x" /></label>
+                                            <input type="submit" id="editClick" value="수정" />
+                                            <button onClick={toggleEditing}><FontAwesomeIcon icon={faTimesCircle} size="2x" /></button>
+                                        </div>
+                                    </form>
                                 </>
                             )}
-                        </div>
-                        <div className="timeCheckBox">{timeCheck()}</div>
-                    </>
-                )
-            }
-        </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="dweetMsgBox">
+                                <div>
+                                    <h3>{dweetObj.nickName}</h3>
+                                    <h4>{dweetObj.text}</h4>
+                                </div>
+                                {dweetObj.attachmentUrl && (
+                                    <img onClick={imgClick} src={dweetObj.attachmentUrl} width="100px" height="100px" alt="img" />
+                                )}
+                                {isOwner && (
+                                    <>
+                                        <div className="dweetBtn">
+                                            <button onClick={toggleEditing}><FontAwesomeIcon icon={faEdit} size="2x" /></button>
+                                            <button onClick={onDeleteClick}><FontAwesomeIcon icon={faTrashAlt} size="2x" /></button>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            <div className="timeCheckBox">{timeCheck()}</div>
+                        </>
+                    )
+                }
+
+            </div>
+            {/* 클릭 이미지 팝업 */}
+            <div className={isPopupActive ? `popupActive` : `notPopupActive`} onClick={cancelClick}>
+                <img src={imgPopup}></img>
+            </div>
+        </>
     )
 };
 

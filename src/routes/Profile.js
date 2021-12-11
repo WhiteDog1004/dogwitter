@@ -48,6 +48,7 @@ const Profiles = ({ refreshUser, userObj }) => {
                         type="text"
                         placeholder="프로필 닉네임"
                         value={newDisplayName}
+                        maxLength={6}
                     />
                     <input type="submit" value="프로필 변경" />
                 </form>
