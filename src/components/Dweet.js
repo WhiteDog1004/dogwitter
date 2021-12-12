@@ -119,13 +119,16 @@ const Dweet = ({ dweetObj, isOwner }) => {
                     ) : (
                         <>
                             <div className="dweetMsgBox">
+                                {dweetObj.photoUrl && (
+                                    <img src={dweetObj.photoUrl} className="photoUrl" />
+                                )}
                                 <div>
                                     <h3>{dweetObj.nickName}</h3>
                                     <h4>{dweetObj.text}</h4>
+                                    {dweetObj.attachmentUrl && (
+                                        <img onClick={imgClick} src={dweetObj.attachmentUrl} width="100px" height="100px" alt="img" />
+                                    )}
                                 </div>
-                                {dweetObj.attachmentUrl && (
-                                    <img onClick={imgClick} src={dweetObj.attachmentUrl} width="100px" height="100px" alt="img" />
-                                )}
                                 {isOwner && (
                                     <>
                                         <div className="dweetBtn">
@@ -134,8 +137,8 @@ const Dweet = ({ dweetObj, isOwner }) => {
                                         </div>
                                     </>
                                 )}
+                                <div className="timeCheckBox">{timeCheck()}</div>
                             </div>
-                            <div className="timeCheckBox">{timeCheck()}</div>
                         </>
                     )
                 }

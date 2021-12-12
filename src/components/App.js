@@ -21,6 +21,7 @@ function App() {
           displayName:user.displayName,
           uid:user.uid,
           updateProfile: (args) => user.updateProfile(args),
+          photoUrl: user.photoURL,
         });
       } else {
         setIsLoggedIn(false);
@@ -34,6 +35,7 @@ function App() {
       displayName:user.displayName,
       uid:user.uid,
       updateProfile: (args) => user.updateProfile(args),
+      photoUrl: user.photoURL,
     });
   }
   return (

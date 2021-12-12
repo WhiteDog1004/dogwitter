@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "fbase";
 
 import '../css/dweetFactory.scss';
+import userProfile from "./userProfile.png";
 
 import {
     faImage, faTimesCircle,
@@ -28,8 +29,10 @@ const DweetFactory = ({ userObj }) => {
             creatorId: userObj.uid,
             attachmentUrl,
             nickName: userObj.displayName,
+            photoUrl: userObj.photoUrl,
         };
         if(dweetItem.text === "") return;
+        if(userObj.photoUrl === null) userObj.photoUrl = userProfile;
         await dbService.collection('dweets').add(dweetItem);
         setDweet("");
         setAttachment("");

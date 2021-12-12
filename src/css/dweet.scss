@@ -50,24 +50,28 @@ textarea {
 .dweetMsgBox {
 	width: 80%;
 	display: flex;
-	flex-direction: column;
-	justify-content: flex-start !important;
-	align-items: center;
+	flex-direction: row;
+	align-items: flex-start !important;
 	position: relative;
 	border: 1px solid rgba(0, 0, 0, 0.15);
-	background: rgba(29, 156, 240, 0.15);
 	border-radius: 20px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-.dweetMsgBox div {
+.photoUrl {
+	margin: 0 auto 0 0 !important;
+	border-radius: 50%;
+}
+
+.dweetMsgBox div:nth-of-type(1) {
 	display: flex;
-	flex-direction: row;
-	align-items: center;
+	flex-direction: column;
+	align-items: flex-start;
 	width: 100%;
 }
 .dweetMsgBox img {
-	margin: 10px auto 10px 0;
+	margin: 10px;
+	z-index: 999;
 	cursor: pointer;
 }
 .dweetMsgBox button {
@@ -86,25 +90,25 @@ textarea {
 	justify-content: flex-end;
 	z-index: 999;
 	position: absolute;
+	right: 0;
+	margin: 10px;
 }
 .dweetMsgBox h3 {
-	margin: 0;
-	width: 10%;
+	margin: 10px;
 	color: rgba(29, 156, 240, 1);
-	text-align: center;
+	text-align: left !important;
 }
 .dweetMsgBox h4 {
-	padding: 10px;
+	padding: 0 10px;
 	width: 90%;
+	margin: 0;
+	font-weight: 300;
 }
 
 .timeCheckBox {
 	position: absolute;
-	width: 80%;
-	text-align: right;
-	left: 50%;
+	right: 0;
 	bottom: 0;
-	transform: translateX(-50%);
 }
 
 .timeCheckBox p {
@@ -131,5 +135,4 @@ textarea {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	object-fit: cover;
 }
