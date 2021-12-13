@@ -64,6 +64,8 @@ const DweetFactory = ({ userObj }) => {
         reader.readAsDataURL(theFile);
     };
     const onClearAttachment = () => setAttachment(null);
+
+
     return (
         <form onSubmit={onSubmit} className="dweetBox">
             <input value={dweet} onChange={onChange} type='text' placeholder="무슨 생각 중이신가요?" maxLength={120} />

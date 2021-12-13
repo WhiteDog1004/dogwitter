@@ -1,14 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dbService, storageService } from "fbase";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     faEdit, faTimesCircle, faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 import '../css/dweet.scss';
+import userProfile from "./userProfile.png";
 
-const Dweet = ({ dweetObj, isOwner }) => {
+const Dweet = ({ dweetObj, isOwner, userObj }) => {
 
     const [imgPopup, setImgPopup] = useState("");
     const [isPopupActive, setIsPopupActive] = useState(false);
@@ -18,7 +19,18 @@ const Dweet = ({ dweetObj, isOwner }) => {
 
     // newDweet : input의 값을 수정할 수 있음
     const [newDweet, setNewDweet] = useState(dweetObj.text);
+    const [newPhoto] = useState(userObj.photoUrl);
+    const [newDisplayName] = useState(userObj.displayName);
 
+
+    useEffect( async () => {
+        if(isOwner){
+            await dbService.doc(`dweets/${dweetObj.id}`).update({
+                nickName: newDisplayName,
+                photoUrl: newPhoto,
+            });
+        }
+    }, []);
     // 삭제
     const onDeleteClick = async () => {
         const ok = window.confirm("정말 dweet을 삭제 하시겠습니까?");
@@ -91,7 +103,7 @@ const Dweet = ({ dweetObj, isOwner }) => {
         setIsPopupActive(false);
         setImgPopup("");
     }
-
+    
     return (
         <>
             <div className="dweetBox">
@@ -119,8 +131,18 @@ const Dweet = ({ dweetObj, isOwner }) => {
                     ) : (
                         <>
                             <div className="dweetMsgBox">
-                                {dweetObj.photoUrl && (
-                                    <img src={dweetObj.photoUrl} className="photoUrl" />
+                                {dweetObj.photoUrl ? (
+                                    <>
+                                        <div className="photoUrlBox">
+                                            <img src={dweetObj.photoUrl} className="photoUrl" width={96} height={96} />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="photoUrlBox">
+                                            <img src={userProfile} className="photoUrl" width={96} height={96} />
+                                        </div>
+                                    </>
                                 )}
                                 <div>
                                     <h3>{dweetObj.nickName}</h3>

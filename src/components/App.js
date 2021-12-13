@@ -38,6 +38,7 @@ function App() {
       photoUrl: user.photoURL,
     });
   }
+  
   return (
     <>
       {init ? <AppRouter refreshUser={refreshUser} isLoggedIn={isLoggedIn} userObj={userObj} /> : "Initializing.."}

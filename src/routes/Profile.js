@@ -1,8 +1,16 @@
-import { authService, dbService } from "fbase";
+import { authService, dbService, storageService } from "fbase";
 import React, { useEffect, useState } from "react";
 
+import {
+    faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import '../css/profile.scss';
+
 const Profiles = ({ refreshUser, userObj }) => {
+    const [attachment, setAttachment] = useState("");
+
     const onLogOutClick = () => {
         const logoutCheck = window.confirm("로그아웃 하시겠습니까?");
         if (logoutCheck) {
@@ -39,6 +47,40 @@ const Profiles = ({ refreshUser, userObj }) => {
             alert(`변경할 닉네임을 작성해주세요`);
         };
     };
+
+    // 프로필 사진
+    const onProfileSubmit = async (event) => {
+        event.preventDefault();
+        const changeCheck = window.confirm("변경하시겠습니까?");
+        if (changeCheck) {
+            let attachmentUrl = "";
+            if (attachment !== "") {
+                const attachmentRef = storageService.ref().child(`${userObj.uid}/avatar`);
+                const response = await attachmentRef.putString(attachment, "data_url");
+                attachmentUrl = await response.ref.getDownloadURL();
+
+                await userObj.updateProfile({photoURL : attachmentUrl});
+            }
+            refreshUser();
+            window.location.replace("/");
+        }
+        setAttachment("");
+    };
+
+    const onProfileFileChange = (event) => {
+        const { target: { files },
+        } = event;
+        const theFile = files[0];
+        const reader = new FileReader();
+        reader.onloadend = (finishedEvent) => {
+            const {
+                currentTarget: { result },
+            } = finishedEvent;
+            setAttachment(result);
+        };
+        theFile && reader.readAsDataURL(theFile);
+    };
+    const onClearAttachment = () => setAttachment(null);
     return (
         <>
             <div className="profileFormBox">
@@ -50,10 +92,24 @@ const Profiles = ({ refreshUser, userObj }) => {
                         value={newDisplayName}
                         maxLength={6}
                     />
-                    <input type="submit" value="프로필 변경" />
+                    <input type="submit" value="닉네임 변경" />
                 </form>
                 <button onClick={onLogOutClick} >LogOut</button>
+
+                <form onSubmit={onProfileSubmit} className="profileChangeBox">
+                    <div>
+                        <input type="file" accept="image/*" onChange={onProfileFileChange} />
+                        <input type='submit' value="변경하기" />
+                    </div>
+                    {attachment && (
+                        <div className="profileChangePreview">
+                            <img src={attachment} width="150px" height="150px" alt="img" />
+                            <button onClick={onClearAttachment}><FontAwesomeIcon icon={faTimesCircle} size="2x" /> </button>
+                        </div>
+                    )}
+                </form>
             </div>
+
         </>
     )
 }
