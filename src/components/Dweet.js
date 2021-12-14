@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dbService, storageService } from "fbase";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import {
     faEdit, faTimesCircle, faTrashAlt,
@@ -23,14 +23,18 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
     const [newDisplayName] = useState(userObj.displayName);
 
 
-    useEffect( async () => {
-        if(isOwner){
+    const profileUpdate = useCallback(async () => {
+        if (isOwner) {
             await dbService.doc(`dweets/${dweetObj.id}`).update({
                 nickName: newDisplayName,
                 photoUrl: newPhoto,
             });
         }
-    }, []);
+    }, [isOwner,  dweetObj.id, newDisplayName, newPhoto]);
+
+    useEffect(() => {
+        profileUpdate();
+    }, [profileUpdate]);
     // 삭제
     const onDeleteClick = async () => {
         const ok = window.confirm("정말 dweet을 삭제 하시겠습니까?");
@@ -103,7 +107,7 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
         setIsPopupActive(false);
         setImgPopup("");
     }
-    
+
     return (
         <>
             <div className="dweetBox">
@@ -134,13 +138,13 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
                                 {dweetObj.photoUrl ? (
                                     <>
                                         <div className="photoUrlBox">
-                                            <img src={dweetObj.photoUrl} className="photoUrl" width={96} height={96} />
+                                            <img src={dweetObj.photoUrl} className="photoUrl" width={96} height={96} alt="img"/>
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         <div className="photoUrlBox">
-                                            <img src={userProfile} className="photoUrl" width={96} height={96} />
+                                            <img src={userProfile} className="photoUrl" width={96} height={96} alt="img"/>
                                         </div>
                                     </>
                                 )}
@@ -168,7 +172,7 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
             </div>
             {/* 클릭 이미지 팝업 */}
             <div className={isPopupActive ? `popupActive` : `notPopupActive`} onClick={cancelClick}>
-                <img src={imgPopup}></img>
+                <img src={imgPopup} alt="img"></img>
             </div>
         </>
     )

@@ -81,6 +81,7 @@ const Profiles = ({ refreshUser, userObj }) => {
         theFile && reader.readAsDataURL(theFile);
     };
     const onClearAttachment = () => setAttachment(null);
+    
     return (
         <>
             <div className="profileFormBox">

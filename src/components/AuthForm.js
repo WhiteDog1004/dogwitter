@@ -33,6 +33,7 @@ const AuthForm = () => {
                 // login
                 data = await authService.signInWithEmailAndPassword(email, password);
             }
+            console.log(data);
         } catch (error) {
             if(error.message.includes("There")){
                 setError("계정이 없습니다.");
@@ -59,7 +60,7 @@ const AuthForm = () => {
         await authService.signInWithPopup(provider)
         .then((result)=>{
             var user = result.user;
-            // console.log(user);
+            console.log(user);
         }, (error)=> {
             // console.log(error);
         });
