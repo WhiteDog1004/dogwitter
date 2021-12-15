@@ -2,6 +2,7 @@ import { authService, dbService, storageService } from "fbase";
 import React, { useEffect, useState } from "react";
 
 import {
+    faFileImage,
     faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -43,6 +44,7 @@ const Profiles = ({ refreshUser, userObj }) => {
                 displayName: newDisplayName,
             });
             refreshUser();
+            window.location.replace("/");
         } else {
             alert(`변경할 닉네임을 작성해주세요`);
         };
@@ -59,7 +61,7 @@ const Profiles = ({ refreshUser, userObj }) => {
                 const response = await attachmentRef.putString(attachment, "data_url");
                 attachmentUrl = await response.ref.getDownloadURL();
 
-                await userObj.updateProfile({photoURL : attachmentUrl});
+                await userObj.updateProfile({ photoURL: attachmentUrl });
             }
             refreshUser();
             window.location.replace("/");
@@ -81,34 +83,44 @@ const Profiles = ({ refreshUser, userObj }) => {
         theFile && reader.readAsDataURL(theFile);
     };
     const onClearAttachment = () => setAttachment(null);
-    
+
     return (
         <>
             <div className="profileFormBox">
                 <form onSubmit={onSubmit}>
+                    <h3>닉네임 변경</h3>
                     <input
                         onChange={onChange}
                         type="text"
                         placeholder="프로필 닉네임"
-                        value={newDisplayName}
+                        value={newDisplayName || ""}
                         maxLength={6}
                     />
                     <input type="submit" value="닉네임 변경" />
                 </form>
-                <button onClick={onLogOutClick} >LogOut</button>
 
                 <form onSubmit={onProfileSubmit} className="profileChangeBox">
-                    <div>
-                        <input type="file" accept="image/*" onChange={onProfileFileChange} />
-                        <input type='submit' value="변경하기" />
-                    </div>
-                    {attachment && (
+                    <h3>프로필 사진 변경</h3>
+                    {attachment ? (
                         <div className="profileChangePreview">
                             <img src={attachment} width="150px" height="150px" alt="img" />
                             <button onClick={onClearAttachment}><FontAwesomeIcon icon={faTimesCircle} size="2x" /> </button>
                         </div>
+                    ) : (
+                        <div className="profileChangePreview">
+                            <img src={userObj.photoUrl} width="150px" height="150px" alt="img" />
+                        </div>
                     )}
+                    <div className="fileInputBox">
+                        <label className="inputFileButton" htmlFor="inputFile">
+                            <p>파일 선택</p>
+                            <FontAwesomeIcon icon={faFileImage} />
+                        </label>
+                        <input type="file" id="inputFile" accept="image/*" onChange={onProfileFileChange} style={{ display: "none" }} />
+                        <input className="changePhotoBtn" type='submit' value="변경하기" />
+                    </div>
                 </form>
+                <button onClick={onLogOutClick} >LogOut</button>
             </div>
 
         </>

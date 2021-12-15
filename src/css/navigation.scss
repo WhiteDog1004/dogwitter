@@ -62,3 +62,13 @@ nav ul li:hover a {
 nav ul li a p {
     margin: 0 0 0 5px;
 }
+
+@media screen and (max-width: 1115px) {
+    nav ul li a p {
+        display: none;
+    }
+    nav ul li a {
+        font-size: 36px;
+        justify-content: center;
+    }
+}

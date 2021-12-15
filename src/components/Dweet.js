@@ -30,7 +30,7 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
                 photoUrl: newPhoto,
             });
         }
-    }, [isOwner,  dweetObj.id, newDisplayName, newPhoto]);
+    }, [isOwner, dweetObj.id, newDisplayName, newPhoto]);
 
     useEffect(() => {
         profileUpdate();
@@ -138,13 +138,13 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
                                 {dweetObj.photoUrl ? (
                                     <>
                                         <div className="photoUrlBox">
-                                            <img src={dweetObj.photoUrl} className="photoUrl" width={96} height={96} alt="img"/>
+                                            <img src={dweetObj.photoUrl} className="photoUrl" width={96} height={96} alt="img" />
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         <div className="photoUrlBox">
-                                            <img src={userProfile} className="photoUrl" width={96} height={96} alt="img"/>
+                                            <img src={userProfile} className="photoUrl" width={96} height={96} alt="img" />
                                         </div>
                                     </>
                                 )}

@@ -62,7 +62,7 @@ const AuthForm = () => {
             var user = result.user;
             console.log(user);
         }, (error)=> {
-            // console.log(error);
+            console.log(error);
         });
     };
 
