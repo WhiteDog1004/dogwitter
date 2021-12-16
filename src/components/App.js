@@ -41,7 +41,7 @@ function App() {
   
   return (
     <>
-      {init ? <AppRouter refreshUser={refreshUser} isLoggedIn={isLoggedIn} userObj={userObj} /> : "Initializing.."}
+      {init ? <AppRouter refreshUser={refreshUser} isLoggedIn={isLoggedIn} userObj={userObj} /> : "로딩중.."}
       {/* <footer>copy Dogwitter {new Date().getFullYear()}</footer> */}
     </>
   );

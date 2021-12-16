@@ -55,7 +55,11 @@
     background: none;
     position: absolute;
     right: 0;
-    color: white;
+    color: rgba(0, 0, 0, 0.3);
     margin: 5px;
     cursor: pointer;
+}
+.dweetImgBox button:hover {
+    color: rgba(255, 0, 0, 0.5);
+    transition: all .25s;
 }
