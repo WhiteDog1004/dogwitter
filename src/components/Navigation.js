@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
 import {
+    faAddressCard,
     faHome,
     faUserAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -34,7 +35,7 @@ const Navigation = ({ userObj }) => {
                 </li>
                 <li>
                     <Link to={`/${profileNickName}`}>
-                        <FontAwesomeIcon icon={faHome} /> <p>My Post</p>
+                        <FontAwesomeIcon icon={faAddressCard} /> <p>My Post</p>
                     </Link>
                 </li>
                 <li>

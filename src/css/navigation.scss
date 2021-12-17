@@ -54,9 +54,11 @@ nav ul li a {
     border-radius: 20px;
     display: flex;
     align-items: center;
+    color: rgba(0, 0, 0, 0.7);
 }
 nav ul li:hover a {
     background-color: rgba(0, 0, 0, 0.1);
+    color: black;
     transition: all .5s;
 }
 nav ul li a p {
