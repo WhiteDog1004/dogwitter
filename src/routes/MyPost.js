@@ -1,6 +1,6 @@
 import { dbService } from "fbase";
 import Dweet from "components/Dweet";
-import DweetFactory from "components/DweetFactory";
+import '../css/myPost.scss';
 import React, { useEffect, useState } from "react";
 
 
@@ -23,7 +23,10 @@ const MyPost = ({ userObj }) => {
     return (
         <>
             <div>
-                <DweetFactory userObj={userObj} />
+                <div className="topTextBox">
+                    <h2>{userObj.displayName}</h2>
+                    <p>님이 작성한 글</p>
+                </div>
                 <div>
                     {dweets.map((dweet) => (
                         <Dweet
