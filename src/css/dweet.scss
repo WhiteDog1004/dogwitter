@@ -143,3 +143,14 @@ textarea {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+
+// 글 좋아요
+.postHead {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.likeCheckBox svg {
+	color: Red;
+	cursor: pointer;
+}

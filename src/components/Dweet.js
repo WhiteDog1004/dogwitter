@@ -3,7 +3,7 @@ import { dbService, storageService } from "fbase";
 import React, { useCallback, useEffect, useState } from "react";
 
 import {
-    faEdit, faTimesCircle, faTrashAlt,
+    faEdit, faHeart, faTimesCircle, faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 import '../css/dweet.scss';
@@ -22,7 +22,7 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
     const [newPhoto] = useState(userObj.photoUrl);
     const [newDisplayName] = useState(userObj.displayName);
 
-
+    // 프로필 사진 & 닉네임 업데이트
     const profileUpdate = useCallback(async () => {
         if (isOwner) {
             await dbService.doc(`dweets/${dweetObj.id}`).update({
@@ -108,6 +108,14 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
         setImgPopup("");
     }
 
+    // 글 좋아요
+    const onLikeCheck = async () => {
+        dweetObj.like++;
+        await dbService.doc(`dweets/${dweetObj.id}`).update({
+            like: dweetObj.like,
+        });
+    }
+
     return (
         <>
             <div className="dweetBox">
@@ -149,7 +157,10 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
                                     </>
                                 )}
                                 <div>
-                                    <h3>{dweetObj.nickName}</h3>
+                                    <div className="postHead">
+                                        <h3>{dweetObj.nickName}</h3>
+                                        <div className="likeCheckBox"><FontAwesomeIcon icon={faHeart} size="1x" onClick={onLikeCheck}/> {dweetObj.like}</div>
+                                    </div>
                                     <h4>{dweetObj.text}</h4>
                                     {dweetObj.attachmentUrl && (
                                         <img onClick={imgClick} src={dweetObj.attachmentUrl} width="100px" height="100px" alt="img" />

@@ -14,6 +14,7 @@ const DweetFactory = ({ userObj }) => {
     // dweet은 form을 위한 state
     const [dweet, setDweet] = useState("");
     const [attachment, setAttachment] = useState("");
+    const [like] = useState(0);
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -30,6 +31,7 @@ const DweetFactory = ({ userObj }) => {
             attachmentUrl,
             nickName: userObj.displayName,
             photoUrl: userObj.photoUrl,
+            like: like,
         };
         if(dweetItem.text === "") return;
         if(userObj.photoUrl === null) userObj.photoUrl = userProfile;
