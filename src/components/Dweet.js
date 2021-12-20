@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import firebase from "firebase"
 import { dbService, storageService } from "fbase";
 import React, { useCallback, useEffect, useState } from "react";
 
@@ -110,10 +111,21 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
 
     // 글 좋아요
     const onLikeCheck = async () => {
-        dweetObj.like++;
-        await dbService.doc(`dweets/${dweetObj.id}`).update({
-            like: dweetObj.like,
-        });
+        const likeCheckTrue = dweetObj.likeCheck.filter(uid => uid === userObj.uid);
+
+        if (!likeCheckTrue[0]) {
+            dweetObj.like++;
+            await dbService.doc(`dweets/${dweetObj.id}`).update({
+                like: dweetObj.like,
+                likeCheck: firebase.firestore.FieldValue.arrayUnion(userObj.uid),
+            });
+        } else {
+            dweetObj.like--;
+            await dbService.doc(`dweets/${dweetObj.id}`).update({
+                like: dweetObj.like,
+                likeCheck: firebase.firestore.FieldValue.arrayRemove(userObj.uid),
+            });
+        }
     }
 
     return (
@@ -159,7 +171,9 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
                                 <div>
                                     <div className="postHead">
                                         <h3>{dweetObj.nickName}</h3>
-                                        <div className="likeCheckBox"><FontAwesomeIcon icon={faHeart} size="1x" onClick={onLikeCheck}/> {dweetObj.like}</div>
+                                        <div className="likeCheckBox">
+                                            <FontAwesomeIcon icon={faHeart} size="1x" onClick={onLikeCheck} /> {dweetObj.like}
+                                        </div>
                                     </div>
                                     <h4>{dweetObj.text}</h4>
                                     {dweetObj.attachmentUrl && (

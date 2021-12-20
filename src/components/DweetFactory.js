@@ -32,6 +32,7 @@ const DweetFactory = ({ userObj }) => {
             nickName: userObj.displayName,
             photoUrl: userObj.photoUrl,
             like: like,
+            likeCheck: [],
         };
         if(dweetItem.text === "") return;
         if(userObj.photoUrl === null) userObj.photoUrl = userProfile;
