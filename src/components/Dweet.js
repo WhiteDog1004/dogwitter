@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import firebase from "firebase"
 import { dbService, storageService } from "fbase";
 import React, { useCallback, useEffect, useState } from "react";
-
+import Comment from "components/Comment";
 import {
     faCommentDots,
     faEdit, faHeart, faTimesCircle, faTrashAlt,
@@ -37,7 +37,9 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
     // 댓글
     const [commentCnt] = useState("0");
     const [commentOn, setCommentOn] = useState(false);
-    const [newComment, setNewComment] = useState(dweetObj.text);
+    const [dweetComment, setDweetComment] = useState("");
+    const [comments, setComments] = useState([]);
+
 
     useEffect(() => {
         profileUpdate();
@@ -62,6 +64,8 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
         });
         setEditing(false);
     };
+
+    
     const onChange = (event) => {
         const {
             target: { value },
@@ -147,8 +151,32 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
         const {
             target: { value },
         } = event;
-        setNewComment(value);
+        setDweetComment(value);
     };
+    const onCommentSubmit = async (event) => {
+        event.preventDefault();
+        const dweetCommentItem = {
+            text: dweetComment,
+            createdAt: Date.now(),
+            creatorId: userObj.uid,
+            nickName: userObj.displayName,
+            photoUrl: userObj.photoUrl,
+        };
+        if (dweetCommentItem.text === "") return;
+        if (userObj.photoUrl === null) userObj.photoUrl = userProfile;
+        await dbService.collection(`dweets/${dweetObj.id}/comment`).add(dweetCommentItem);
+        setDweetComment("");
+    };
+
+    useEffect(() => {
+        dbService.collection(`dweets/${dweetObj.id}/comment`).orderBy("createdAt", "asc").onSnapshot((snapShot) => {
+            const dweetCommentArr = snapShot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setComments(dweetCommentArr);
+        });
+    }, []);
 
     return (
         <>
@@ -220,21 +248,24 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
                                 {commentOn && (
                                     <div className="commentOnClick">
                                         <div className="comments">
-                                            <div>
-                                                <img src={userObj.photoUrl}></img>
-                                                <p>테스트</p>
+                                            <div className="commentsBox">
+                                                {comments.map((dweet) => (
+                                                    <Comment
+                                                        userObj={userObj}
+                                                        key={dweet.id}
+                                                        dweetObj={dweet}
+                                                        isCommentOwner={dweet.creatorId === userObj.uid}
+                                                        postObj={dweetObj.id}
+                                                    />
+                                                ))}
                                             </div>
                                         </div>
                                         <div className="commentAvatarAndComment">
                                             <img src={userObj.photoUrl}></img>
                                             <div className="myComment">
-                                                <form>
-                                                    <textarea
-                                                        type="text"
-                                                        placeholder="댓글 작성하기"
-                                                        value={newComment}
-                                                        required
-                                                        onChange={onCommentChange} />
+                                                <form onSubmit={onCommentSubmit} className="dweetCommentBox">
+                                                    <input value={dweetComment} onChange={onCommentChange} type='text' placeholder="댓글 작성하기" maxLength={40} />
+                                                    <input type="submit" id="dweetComment" value="Dweet" />
                                                 </form>
                                             </div>
                                         </div>

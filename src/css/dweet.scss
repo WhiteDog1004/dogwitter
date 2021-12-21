@@ -71,7 +71,7 @@ textarea {
 	// border: 1px solid rgba(29, 155, 240, 0.5);
 }
 
-.dweetMsgBox div:nth-of-type(2) {
+.dweetMsgBox > div:nth-of-type(2) {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -198,4 +198,48 @@ textarea {
 .myComment textarea{
 	width: 100% !important;
 	height: 50px !important;
+}
+.dweetCommentBox > input {
+	display: flex !important;
+	flex-direction: row;
+}
+.commentsBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center !important;
+}
+.commentsBox > div{
+	width: 80% !important;
+	display: flex;
+	flex-direction: row !important;
+	align-items: center !important;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 20px;
+	margin: 5px;
+	position: relative;
+}
+.commentsBox > div p {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin: 10px;
+	color: black;
+    opacity: .5;
+}
+.commentTextBox {
+	width: 60%;
+}
+.commentTextBox h4 {
+	color: rgba(29, 156, 240, 1);
+	font-weight: 700;
+}
+.commentTextBox span {
+	margin: 0 10px;
+}
+.commentBtn {
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 10px;
 }
