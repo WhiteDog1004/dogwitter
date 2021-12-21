@@ -50,7 +50,7 @@ textarea {
 .dweetMsgBox {
 	width: 80%;
 	display: flex;
-	flex-direction: row;
+	flex-flow : row wrap;
 	align-items: flex-start !important;
 	position: relative;
 	border: 1px solid rgba(0, 0, 0, 0.15);
@@ -59,22 +59,23 @@ textarea {
 	margin-bottom: 10px;
 }
 .photoUrlBox {
-	width: 96px;
-	height: 96px;
+	width: 12%;
 	position: relative;
 }
 .photoUrl {
-	width: 96px !important;
-	height: 96px !important;
+	width: 100% !important;
+	max-width: 100px;
+	height: auto !important;
 	margin: 0 auto 0 0 !important;
 	border-radius: 50%;
+	// border: 1px solid rgba(29, 155, 240, 0.5);
 }
 
 .dweetMsgBox div:nth-of-type(2) {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	width: 100%;
+	width: 88%;
 }
 .dweetMsgBox img {
 	margin: 10px;
@@ -107,7 +108,7 @@ textarea {
 }
 .dweetMsgBox h4 {
 	padding: 0 10px;
-	width: 90%;
+	width: 85%;
 	margin: 0;
 	font-weight: 300;
 }
@@ -116,6 +117,9 @@ textarea {
 	position: absolute;
 	right: 0;
 	bottom: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .timeCheckBox p {
@@ -153,4 +157,45 @@ textarea {
 .likeCheckBox svg {
 	color: Red;
 	cursor: pointer;
+}
+
+// 댓글
+.commentBox {
+	color: rgba(0, 0, 0, 0.35);
+	cursor: pointer;
+	margin: 0 10px;
+}
+.commentBox:hover {
+	color: rgba(0, 0, 0, 1);
+	transition: color 0.25s;
+}
+.commentOnClick {
+	width: 100%;
+	margin: 10px 0 30px 0;
+}
+.commentAvatarAndComment {
+	width: 100% !important;
+	display: flex;
+	flex-direction: row !important;
+	justify-content: center;
+}
+.commentAvatarAndComment > img {
+	width: 50px;
+	height: 50px;
+	margin: 0 10px;
+}
+.comments > div {
+	display: flex;
+	align-items: center;
+}
+.comments img {
+	width: 60px;
+	height: 60px;
+}
+.myComment {
+	width: 80%;
+}
+.myComment textarea{
+	width: 100% !important;
+	height: 50px !important;
 }

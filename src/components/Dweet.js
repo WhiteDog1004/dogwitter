@@ -4,6 +4,7 @@ import { dbService, storageService } from "fbase";
 import React, { useCallback, useEffect, useState } from "react";
 
 import {
+    faCommentDots,
     faEdit, faHeart, faTimesCircle, faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -32,6 +33,11 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
             });
         }
     }, [isOwner, dweetObj.id, newDisplayName, newPhoto]);
+
+    // 댓글
+    const [commentCnt] = useState("0");
+    const [commentOn, setCommentOn] = useState(false);
+    const [newComment, setNewComment] = useState(dweetObj.text);
 
     useEffect(() => {
         profileUpdate();
@@ -128,6 +134,22 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
         }
     }
 
+    // 댓글 체크확인
+    const onClickComment = () => {
+        if (!commentOn) {
+            setCommentOn(true);
+        } else {
+            setCommentOn(false);
+        }
+    }
+    // 댓글 작성
+    const onCommentChange = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setNewComment(value);
+    };
+
     return (
         <>
             <div className="dweetBox">
@@ -188,7 +210,36 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
                                         </div>
                                     </>
                                 )}
-                                <div className="timeCheckBox">{timeCheck()}</div>
+                                <div className="timeCheckBox">
+                                    {timeCheck()}
+                                    <div className="commentBox" onClick={onClickComment}>
+                                        <FontAwesomeIcon icon={faCommentDots} />
+                                        <span> {commentCnt}</span>
+                                    </div>
+                                </div>
+                                {commentOn && (
+                                    <div className="commentOnClick">
+                                        <div className="comments">
+                                            <div>
+                                                <img src={userObj.photoUrl}></img>
+                                                <p>테스트</p>
+                                            </div>
+                                        </div>
+                                        <div className="commentAvatarAndComment">
+                                            <img src={userObj.photoUrl}></img>
+                                            <div className="myComment">
+                                                <form>
+                                                    <textarea
+                                                        type="text"
+                                                        placeholder="댓글 작성하기"
+                                                        value={newComment}
+                                                        required
+                                                        onChange={onCommentChange} />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </>
                     )
