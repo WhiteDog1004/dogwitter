@@ -124,6 +124,7 @@ textarea {
 
 .timeCheckBox p {
 	padding: 0 20px;
+	margin: 10px 0;
 	color: rgb(0, 0, 0);
 	opacity: .5;
 }
@@ -179,7 +180,7 @@ textarea {
 	flex-direction: row !important;
 	justify-content: center;
 }
-.commentAvatarAndComment > img {
+.commentAvatarAndComment > div > img {
 	width: 50px;
 	height: 50px;
 	margin: 0 10px;
@@ -191,17 +192,50 @@ textarea {
 .comments img {
 	width: 60px;
 	height: 60px;
+	border-radius: 50%;
+	background: white;
 }
 .myComment {
 	width: 80%;
+	display: flex;
+	align-items: center;
 }
 .myComment textarea{
 	width: 100% !important;
 	height: 50px !important;
 }
+.dweetCommentBox {
+	display: flex;
+	flex-direction: row !important;
+	align-items: center;
+}
 .dweetCommentBox > input {
 	display: flex !important;
 	flex-direction: row;
+}
+.dweetCommentBox > input[type="text"] {
+	width: 80%;
+	height: 40px;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	padding: 10px;
+}
+.dweetCommentBox > input[type="submit"] {
+	width: 80px;
+	height: 40px;
+	border: 0;
+	border-left: 0;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	justify-content: center;
+	background: rgba(29, 156, 240, 0.7);
+	color: white;
+	cursor: pointer;
+}
+.dweetCommentBox > input[type="submit"]:hover {
+	background: rgba(29, 156, 240, 1);
+	transition: background .25s;
 }
 .commentsBox {
 	display: flex;
@@ -214,10 +248,15 @@ textarea {
 	display: flex;
 	flex-direction: row !important;
 	align-items: center !important;
-	border: 1px solid rgba(0, 0, 0, 0.3);
-	border-radius: 20px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-top-left-radius: 20px;
+	border-bottom-right-radius: 20px;
 	margin: 5px;
 	position: relative;
+}
+.commentsBox > div:hover {
+	background: rgba(29, 156, 240, 0.15);
+	transition: background .25s;
 }
 .commentsBox > div p {
 	position: absolute;
@@ -232,7 +271,9 @@ textarea {
 }
 .commentTextBox h4 {
 	color: rgba(29, 156, 240, 1);
+	cursor: pointer;
 	font-weight: 700;
+	margin: 5px 0;
 }
 .commentTextBox span {
 	margin: 0 10px;

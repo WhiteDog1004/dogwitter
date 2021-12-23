@@ -6,17 +6,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Comment = ({ postObj, dweetObj, isCommentOwner }) => {
-
-    // editing : dweet을 수정하고 있는지 아닌지를 확인함
     const [editing, setEditing] = useState(false);
     const [newCommentDweet, setNewCommentDweet] = useState(dweetObj.text);
 
     const timeCommentCheck = () => {
-        // 드윗 작성후 시간 얼마나 지났는지
         const testTime = Date.now();
         const timeNow = (testTime - dweetObj.createdAt) / 1000;
         const timeResult = Math.floor(timeNow);
-
 
         if (timeResult < 60) {
             let time = 0;
@@ -63,6 +59,8 @@ const Comment = ({ postObj, dweetObj, isCommentOwner }) => {
             await dbService.doc(`dweets/${postObj}/comment/${dweetObj.id}`).delete();
         }
     };
+
+    // 수정
     const commentEditing = () => setEditing((prev) => !prev);
 
     const onCommentChange = (event) => {
@@ -71,6 +69,7 @@ const Comment = ({ postObj, dweetObj, isCommentOwner }) => {
         } = event;
         setNewCommentDweet(value);
     };
+
 
     return (
         <div>
@@ -97,7 +96,7 @@ const Comment = ({ postObj, dweetObj, isCommentOwner }) => {
                     </>
                 ) : (
                     <>
-                        <img src={dweetObj.photoUrl} />
+                        <img src={dweetObj.photoUrl} alt="img"/>
                         <div className="commentTextBox">
                             <h4>{dweetObj.nickName}</h4>
                             <span>{dweetObj.text}</span>

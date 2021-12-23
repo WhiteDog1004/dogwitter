@@ -35,7 +35,7 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
     }, [isOwner, dweetObj.id, newDisplayName, newPhoto]);
 
     // 댓글
-    const [commentCnt] = useState("0");
+    const [commentCnt, setCommentCnt] = useState("0");
     const [commentOn, setCommentOn] = useState(false);
     const [dweetComment, setDweetComment] = useState("");
     const [comments, setComments] = useState([]);
@@ -65,7 +65,7 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
         setEditing(false);
     };
 
-    
+
     const onChange = (event) => {
         const {
             target: { value },
@@ -175,8 +175,10 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
                 ...doc.data(),
             }));
             setComments(dweetCommentArr);
+            setCommentCnt(dweetCommentArr.length);
         });
-    }, []);
+    }, [dweetObj.id]);
+
 
     return (
         <>
@@ -261,8 +263,8 @@ const Dweet = ({ dweetObj, isOwner, userObj }) => {
                                             </div>
                                         </div>
                                         <div className="commentAvatarAndComment">
-                                            <img src={userObj.photoUrl}></img>
                                             <div className="myComment">
+                                                <img src={userObj.photoUrl} alt="img" />
                                                 <form onSubmit={onCommentSubmit} className="dweetCommentBox">
                                                     <input value={dweetComment} onChange={onCommentChange} type='text' placeholder="댓글 작성하기" maxLength={40} />
                                                     <input type="submit" id="dweetComment" value="Dweet" />
