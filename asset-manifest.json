@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/dogwitter/static/css/main.0517f4aa.chunk.css",
-    "main.js": "/dogwitter/static/js/main.545e8fa4.chunk.js",
-    "main.js.map": "/dogwitter/static/js/main.545e8fa4.chunk.js.map",
+    "main.js": "/dogwitter/static/js/main.d9704996.chunk.js",
+    "main.js.map": "/dogwitter/static/js/main.d9704996.chunk.js.map",
     "runtime-main.js": "/dogwitter/static/js/runtime-main.a04d5f3d.js",
     "runtime-main.js.map": "/dogwitter/static/js/runtime-main.a04d5f3d.js.map",
     "static/js/2.1a08c06f.chunk.js": "/dogwitter/static/js/2.1a08c06f.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.a04d5f3d.js",
     "static/js/2.1a08c06f.chunk.js",
     "static/css/main.0517f4aa.chunk.css",
-    "static/js/main.545e8fa4.chunk.js"
+    "static/js/main.d9704996.chunk.js"
   ]
 }
