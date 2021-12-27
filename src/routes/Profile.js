@@ -1,6 +1,5 @@
 import { authService, dbService, storageService } from "fbase";
 import React, { useEffect, useState } from "react";
-
 import {
     faFileImage,
     faTimesCircle,
@@ -14,8 +13,9 @@ const Profiles = ({ refreshUser, userObj }) => {
 
     const onLogOutClick = () => {
         const logoutCheck = window.confirm("로그아웃 하시겠습니까?");
+        
         if (logoutCheck) {
-            window.location.href = "/";
+            window.history.back();
             authService.signOut();
         }
     };
@@ -44,7 +44,7 @@ const Profiles = ({ refreshUser, userObj }) => {
                 displayName: newDisplayName,
             });
             refreshUser();
-            window.location.replace("/");
+            window.history.back();
         } else {
             alert(`변경할 닉네임을 작성해주세요`);
         };
@@ -64,7 +64,7 @@ const Profiles = ({ refreshUser, userObj }) => {
                 await userObj.updateProfile({ photoURL: attachmentUrl });
             }
             refreshUser();
-            window.location.replace("/");
+            window.history.back();
         }
         setAttachment("");
     };

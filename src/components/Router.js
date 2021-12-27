@@ -5,7 +5,7 @@ import Home from "../routes/Home";
 import MyPost from "../routes/MyPost";
 import Profile from "../routes/Profile";
 import Navigation from "components/Navigation";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
     const [profileNickName, setProfileNickName] = useState("");

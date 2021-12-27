@@ -10,7 +10,7 @@ const AuthForm = () => {
     const [newAccount, setNewAccount] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [textError, setTextError] = useState("");
 
     const toggleAccount = () => setNewAccount((prev) => !prev);
 
@@ -36,13 +36,13 @@ const AuthForm = () => {
             console.log(data);
         } catch (error) {
             if(error.message.includes("There")){
-                setError("계정이 없습니다.");
+                setTextError("계정이 없습니다.");
             } else if(error.message.includes("password")){
-                setError("비밀번호가 틀렸습니다.");
+                setTextError("비밀번호가 틀렸습니다.");
             } else if(error.message.includes("Password")){
-                setError("비밀번호는 최소 6자 이상 입력해주세요.");
+                setTextError("비밀번호는 최소 6자 이상 입력해주세요.");
             } else if(error.message.includes("another")){
-                setError("이미 존재하는 계정입니다.");
+                setTextError("이미 존재하는 계정입니다.");
             } else {
                 console.log(error.message);
             }
@@ -60,7 +60,6 @@ const AuthForm = () => {
         await authService.signInWithPopup(provider)
         .then((result)=>{
             var user = result.user;
-            console.log(user);
         }, (error)=> {
             console.log(error);
         });
@@ -90,7 +89,7 @@ const AuthForm = () => {
                         onChange={onChange}
                     />
                     <input type="submit" value={newAccount ? "회원가입 완료" : "로그인"} />
-                    {error}
+                    {textError}
                 </form>
                 <div className="outBtn">
                     <span onClick={toggleAccount}>{newAccount ? "계정이 있으신가요?" : "계정을 만들고 싶으신가요?"} </span>

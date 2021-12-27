@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import '../css/navigation.scss';
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 
 const Navigation = ({ userObj }) => {
     const [profileNickName, setProfileNickName] = useState("");
