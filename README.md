@@ -21,3 +21,6 @@ Firebase No-SQL <br>
 · View Img Popup <br>
 · Recommend Post <br>
 · Show Post Date <br>
+
+### 노마드코더 강의를 보고 구현해본 사이트입니다.
+- 댓글, 자기가 작성한 글 등등 추가적으로 구현해 보았습니다
